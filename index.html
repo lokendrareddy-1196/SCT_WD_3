@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe | Modern Edition</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Fullscreen Confetti Canvas -->
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div class="app-container">
+    <!-- Top Utility Bar: Brand, Theme Switcher & Sound -->
+    <div class="top-bar">
+      <div class="brand">
+        <span class="brand-icon">⚡</span>
+        <span class="brand-name">Tic-Tac-Toe</span>
+      </div>
+      
+      <div class="top-actions">
+        <!-- Theme Picker -->
+        <div class="theme-selector" title="Change Theme">
+          <select id="theme-select" class="theme-select" aria-label="Select Theme">
+            <option value="dark">🌌 Dark</option>
+            <option value="neon">⚡ Neon</option>
+            <option value="light">☀️ Light</option>
+          </select>
+        </div>
+
+        <!-- Sound Toggle -->
+        <button id="sound-toggle-btn" class="icon-btn" aria-label="Toggle Sound" title="Toggle Sound">
+          <span id="sound-icon">🔊</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Header & Mode Selection -->
+    <header class="game-header">
+      <div class="mode-selector" role="radiogroup" aria-label="Game Mode">
+        <button type="button" id="mode-pvp" class="mode-btn active" role="radio" aria-checked="true">
+          <span class="mode-icon">🧑 vs 🧑</span> Player vs Player
+        </button>
+        <button type="button" id="mode-pvc" class="mode-btn" role="radio" aria-checked="false">
+          <span class="mode-icon">🎮 Player vs 🤖 AI</span>
+        </button>
+      </div>
+
+      <!-- Difficulty Selector (Visible in vs AI mode) -->
+      <div id="difficulty-wrapper" class="difficulty-wrapper hidden" aria-label="AI Difficulty Level">
+        <span class="difficulty-title">AI Difficulty:</span>
+        <div class="difficulty-group" role="radiogroup">
+          <button type="button" class="diff-btn" data-diff="easy" role="radio" aria-checked="false">Easy</button>
+          <button type="button" class="diff-btn" data-diff="medium" role="radio" aria-checked="false">Medium</button>
+          <button type="button" class="diff-btn active" data-diff="hard" role="radio" aria-checked="true">Hard</button>
+        </div>
+      </div>
+
+      <!-- Player Names Settings Bar -->
+      <div class="player-names-bar" aria-label="Custom Player Names">
+        <div class="name-input-group">
+          <span class="name-icon icon-x">X</span>
+          <input type="text" id="name-input-x" class="name-input" maxlength="12" placeholder="Player X" aria-label="Player X Name">
+        </div>
+        <div class="name-vs-divider">VS</div>
+        <div class="name-input-group">
+          <span class="name-icon icon-o" id="name-icon-o">O</span>
+          <input type="text" id="name-input-o" class="name-input" maxlength="12" placeholder="Player O" aria-label="Player O or AI Name">
+        </div>
+      </div>
+
+      <!-- Turn Timer Toggle (Visible in PvP mode) -->
+      <div id="timer-wrapper" class="timer-wrapper">
+        <label class="toggle-switch">
+          <input type="checkbox" id="timer-toggle">
+          <span class="slider"></span>
+        </label>
+        <span class="timer-label">15s Turn Timer</span>
+      </div>
+    </header>
+
+    <!-- Scoreboard -->
+    <section class="scoreboard" aria-label="Scoreboard">
+      <div class="score-card player-x" id="card-x">
+        <span class="player-label" id="label-x">Player X</span>
+        <span class="score-value" id="score-x">0</span>
+      </div>
+      <div class="score-card score-draws" id="card-draws">
+        <span class="player-label">Draws</span>
+        <span class="score-value" id="score-draws">0</span>
+      </div>
+      <div class="score-card player-o" id="card-o">
+        <span class="player-label" id="label-o">Player O</span>
+        <span class="score-value" id="score-o">0</span>
+      </div>
+    </section>
+
+    <!-- Turn Indicator & Radial Progress Visual Clock -->
+    <div class="status-container">
+      <div class="status-wrapper">
+        <!-- SVG Circular Countdown Progress Clock -->
+        <div id="clock-container" class="clock-container hidden" title="Turn Timer">
+          <svg class="clock-svg" viewBox="0 0 36 36">
+            <circle class="clock-bg" cx="18" cy="18" r="14" />
+            <circle id="clock-progress" class="clock-progress" cx="18" cy="18" r="14" />
+          </svg>
+          <span id="clock-number" class="clock-number">15</span>
+        </div>
+
+        <!-- Live Status Message -->
+        <div id="status-message" class="status-message" role="status" aria-live="polite">
+          <span class="turn-symbol x-turn">X</span>'s Turn
+        </div>
+      </div>
+    </div>
+
+    <!-- 3x3 Game Board with SVG Winning Strike Overlay -->
+    <main class="board-wrapper">
+      <div class="game-board-container">
+        <div class="game-board" id="game-board" role="grid" aria-label="Tic Tac Toe Board">
+          <button class="cell" data-index="0" role="gridcell" tabindex="0" aria-label="Cell 1, top left"></button>
+          <button class="cell" data-index="1" role="gridcell" tabindex="0" aria-label="Cell 2, top center"></button>
+          <button class="cell" data-index="2" role="gridcell" tabindex="0" aria-label="Cell 3, top right"></button>
+          <button class="cell" data-index="3" role="gridcell" tabindex="0" aria-label="Cell 4, middle left"></button>
+          <button class="cell" data-index="4" role="gridcell" tabindex="0" aria-label="Cell 5, center"></button>
+          <button class="cell" data-index="5" role="gridcell" tabindex="0" aria-label="Cell 6, middle right"></button>
+          <button class="cell" data-index="6" role="gridcell" tabindex="0" aria-label="Cell 7, bottom left"></button>
+          <button class="cell" data-index="7" role="gridcell" tabindex="0" aria-label="Cell 8, bottom center"></button>
+          <button class="cell" data-index="8" role="gridcell" tabindex="0" aria-label="Cell 9, bottom right"></button>
+        </div>
+
+        <!-- Animated SVG Winning Strike Line -->
+        <svg class="strike-overlay" id="strike-overlay" viewBox="0 0 300 300" aria-hidden="true">
+          <line id="strike-line" class="strike-line" x1="0" y1="0" x2="0" y2="0" />
+        </svg>
+      </div>
+    </main>
+
+    <!-- Move History & Undo Section -->
+    <section class="move-history-section">
+      <div class="history-header">
+        <span class="history-title">📜 Move History</span>
+        <button id="undo-btn" class="undo-btn" title="Undo Last Move" disabled>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 10h10a5 5 0 0 1 5 5v2a5 5 0 0 1-5 5H6M3 10l5-5M3 10l5 5"/>
+          </svg>
+          Undo
+        </button>
+      </div>
+      <div id="move-history-list" class="move-history-list" aria-live="polite">
+        <span class="no-moves-text">Game started. Make your first move!</span>
+      </div>
+    </section>
+
+    <!-- Game Bottom Controls -->
+    <footer class="game-controls">
+      <button id="restart-btn" class="action-btn primary-btn">
+        <svg class="btn-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+        </svg>
+        Restart Round
+      </button>
+      <button id="reset-score-btn" class="action-btn secondary-btn" title="Reset All Saved Scores">
+        Reset Scores
+      </button>
+    </footer>
+  </div>
+
+  <!-- Play Again & Share Result Modal -->
+  <div id="result-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div id="modal-badge" class="modal-badge">🏆</div>
+      <h2 id="modal-title" class="modal-title">Player X Wins!</h2>
+      <p id="modal-subtitle" class="modal-subtitle">Great game! Ready for another round?</p>
+      
+      <div class="modal-actions">
+        <button id="modal-play-again-btn" class="action-btn primary-btn pulse-glow">
+          Play Again
+        </button>
+        <button id="modal-share-btn" class="action-btn share-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/>
+          </svg>
+          <span id="share-btn-text">Copy Result</span>
+        </button>
+        <button id="modal-close-btn" class="action-btn secondary-btn">
+          View Board
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

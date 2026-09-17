@@ -1,0 +1,952 @@
+/* ==========================================================================
+   THEME DEFINITIONS & COLOR PALETTES
+   ========================================================================== */
+
+/* 1. Midnight / Deep Violet Dark Theme (Default) */
+:root, [data-theme="dark"] {
+  --bg-gradient: radial-gradient(circle at 50% 10%, #1e1b4b 0%, #0f172a 50%, #030712 100%);
+  --card-bg: rgba(23, 23, 47, 0.78);
+  --card-border: rgba(255, 255, 255, 0.12);
+  --cell-bg: rgba(15, 23, 42, 0.72);
+  --cell-hover: rgba(49, 46, 129, 0.5);
+  --cell-active: rgba(30, 27, 75, 0.9);
+  --cell-border: rgba(255, 255, 255, 0.08);
+
+  --color-x: #38bdf8;
+  --color-x-glow: rgba(56, 189, 248, 0.45);
+  --color-o: #f43f5e;
+  --color-o-glow: rgba(244, 63, 94, 0.45);
+  --color-win: #10b981;
+  --color-win-glow: rgba(16, 185, 129, 0.6);
+  --color-draw: #f59e0b;
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --input-bg: rgba(15, 23, 42, 0.6);
+  --history-bg: rgba(15, 23, 42, 0.45);
+  --history-chip-bg: rgba(255, 255, 255, 0.07);
+  --shadow-main: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--card-border);
+}
+
+/* 2. Cyberpunk Neon Theme */
+[data-theme="neon"] {
+  --bg-gradient: radial-gradient(circle at 50% 10%, #0f051d 0%, #05050f 60%, #000000 100%);
+  --card-bg: rgba(18, 10, 36, 0.85);
+  --card-border: rgba(0, 242, 254, 0.25);
+  --cell-bg: rgba(10, 5, 20, 0.85);
+  --cell-hover: rgba(0, 242, 254, 0.2);
+  --cell-active: rgba(255, 0, 127, 0.3);
+  --cell-border: rgba(0, 242, 254, 0.18);
+
+  --color-x: #00f2fe;
+  --color-x-glow: rgba(0, 242, 254, 0.7);
+  --color-o: #ff007f;
+  --color-o-glow: rgba(255, 0, 127, 0.7);
+  --color-win: #39ff14;
+  --color-win-glow: rgba(57, 255, 20, 0.8);
+  --color-draw: #ffd700;
+  --color-accent: #a855f7;
+  --color-accent-hover: #c084fc;
+
+  --text-main: #ffffff;
+  --text-muted: #a78bfa;
+  --input-bg: rgba(15, 5, 30, 0.8);
+  --history-bg: rgba(10, 5, 20, 0.7);
+  --history-chip-bg: rgba(0, 242, 254, 0.1);
+  --shadow-main: 0 0 40px rgba(168, 85, 247, 0.25), 0 0 0 1px var(--card-border);
+}
+
+/* 3. Modern Light Theme */
+[data-theme="light"] {
+  --bg-gradient: radial-gradient(circle at 50% 10%, #f8fafc 0%, #e2e8f0 65%, #cbd5e1 100%);
+  --card-bg: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --cell-bg: rgba(241, 245, 249, 0.9);
+  --cell-hover: rgba(226, 232, 240, 0.95);
+  --cell-active: rgba(203, 213, 225, 0.95);
+  --cell-border: rgba(0, 0, 0, 0.06);
+
+  --color-x: #0284c7;
+  --color-x-glow: rgba(2, 132, 199, 0.25);
+  --color-o: #e11d48;
+  --color-o-glow: rgba(225, 29, 72, 0.25);
+  --color-win: #059669;
+  --color-win-glow: rgba(5, 150, 105, 0.35);
+  --color-draw: #d97706;
+  --color-accent: #4f46e5;
+  --color-accent-hover: #4338ca;
+
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --history-bg: rgba(241, 245, 249, 0.75);
+  --history-chip-bg: rgba(0, 0, 0, 0.05);
+  --shadow-main: 0 20px 40px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px var(--card-border);
+}
+
+/* Base Settings */
+:root {
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+  --font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
+  color: var(--text-main);
+  overflow-x: hidden;
+  transition: background 0.4s ease;
+}
+
+/* Fullscreen Confetti Canvas Layer */
+.confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* App Container */
+.app-container {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.4rem;
+  box-shadow: var(--shadow-main);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* 1. Top Utility Bar */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.brand-icon {
+  font-size: 1.25rem;
+}
+
+.brand-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-select {
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.theme-select:hover {
+  border-color: var(--color-accent);
+}
+
+.icon-btn {
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.06);
+  border-color: var(--color-accent);
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+/* 2. Header & Mode Selection */
+.game-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.mode-selector {
+  display: flex;
+  background: var(--input-bg);
+  padding: 0.3rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--card-border);
+  gap: 0.3rem;
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.55rem 0.4rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text-main);
+}
+
+.mode-btn.active {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+/* Difficulty Selector */
+.difficulty-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--input-bg);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+  animation: slideDown 0.2s ease-out;
+}
+
+.difficulty-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.difficulty-group {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.diff-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.diff-btn:hover {
+  color: var(--text-main);
+}
+
+.diff-btn.active {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Custom Player Names Inputs */
+.player-names-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.name-input-group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.6rem;
+  gap: 0.4rem;
+  transition: border-color 0.2s ease;
+}
+
+.name-input-group:focus-within {
+  border-color: var(--color-accent);
+}
+
+.name-icon {
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.name-icon.icon-x { color: var(--color-x); }
+.name-icon.icon-o { color: var(--color-o); }
+
+.name-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.name-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.name-vs-divider {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+/* Timer Option */
+.timer-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--input-bg);
+  padding: 0.35rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--card-border);
+}
+
+.timer-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 18px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(120, 120, 140, 0.3);
+  transition: 0.3s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: var(--color-accent);
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/* 3. Scoreboard */
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.score-card {
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  transition: all 0.3s ease;
+}
+
+.player-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.score-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.score-card.player-x .player-label { color: var(--color-x); }
+.score-card.player-o .player-label { color: var(--color-o); }
+
+.score-card.active-turn {
+  border-color: var(--color-accent);
+  background: rgba(99, 102, 241, 0.1);
+  transform: translateY(-2px);
+}
+
+.score-card.player-x.active-turn { box-shadow: 0 0 14px var(--color-x-glow); }
+.score-card.player-o.active-turn { box-shadow: 0 0 14px var(--color-o-glow); }
+
+/* 4. Status Indicator & Radial Visual Clock */
+.status-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 2.2rem;
+}
+
+.status-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+/* Visual Radial Timer Clock */
+.clock-container {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.clock-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.clock-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3.5;
+}
+
+[data-theme="light"] .clock-bg {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+
+.clock-progress {
+  fill: none;
+  stroke: var(--color-win);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 88; /* 2 * PI * 14 ~= 87.96 */
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.9s linear, stroke 0.3s ease;
+}
+
+.clock-progress.warning {
+  stroke: var(--color-draw);
+}
+
+.clock-progress.danger {
+  stroke: #ef4444;
+  animation: clockPulse 0.5s infinite alternate;
+}
+
+@keyframes clockPulse {
+  from { filter: drop-shadow(0 0 2px #ef4444); }
+  to { filter: drop-shadow(0 0 8px #ef4444); }
+}
+
+.clock-number {
+  position: absolute;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.status-message {
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.3s ease;
+}
+
+.turn-symbol {
+  font-weight: 800;
+}
+
+.turn-symbol.x-turn {
+  color: var(--color-x);
+  text-shadow: 0 0 10px var(--color-x-glow);
+}
+
+.turn-symbol.o-turn {
+  color: var(--color-o);
+  text-shadow: 0 0 10px var(--color-o-glow);
+}
+
+.status-message.draw {
+  color: var(--color-draw);
+  animation: shake 0.5s ease;
+}
+
+.status-message.thinking {
+  color: var(--text-muted);
+  font-style: italic;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+/* 5. Game Board & Strike Overlay */
+.board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-board-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.65rem;
+  width: 100%;
+  height: 100%;
+}
+
+.cell {
+  background: var(--cell-bg);
+  border: 1px solid var(--cell-border);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 2.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.4, 1), background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.03), 0 4px 10px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+.cell:hover:not(.filled):not(:disabled) {
+  background: var(--cell-hover);
+  border-color: var(--color-accent);
+}
+
+/* Tactile scale-down press */
+.cell:active:not(.filled):not(:disabled) {
+  transform: scale(0.92) !important;
+  background: var(--cell-active);
+}
+
+/* Accessible Clear Keyboard Focus Ring */
+.cell:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  box-shadow: 0 0 12px var(--color-accent);
+}
+
+.cell.x {
+  color: var(--color-x);
+  text-shadow: 0 0 16px var(--color-x-glow);
+  animation: popIn 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cell.o {
+  color: var(--color-o);
+  text-shadow: 0 0 16px var(--color-o-glow);
+  animation: popIn 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.4) rotate(-10deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+.cell.filled, .cell:disabled {
+  cursor: default;
+}
+
+/* 6. Strike-Through SVG Line */
+.strike-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.strike-line {
+  stroke: var(--color-win);
+  stroke-width: 6.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px var(--color-win-glow)) drop-shadow(0 0 16px var(--color-win));
+  stroke-dasharray: 450;
+  stroke-dashoffset: 450;
+  transition: stroke-dashoffset 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.strike-line.active {
+  stroke-dashoffset: 0;
+}
+
+.strike-line.x-winner {
+  stroke: var(--color-x);
+  filter: drop-shadow(0 0 8px var(--color-x-glow)) drop-shadow(0 0 16px var(--color-x));
+}
+
+.strike-line.o-winner {
+  stroke: var(--color-o);
+  filter: drop-shadow(0 0 8px var(--color-o-glow)) drop-shadow(0 0 16px var(--color-o));
+}
+
+/* 7. Move History & Undo Section */
+.move-history-section {
+  background: var(--history-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.history-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.undo-btn {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.undo-btn:hover:not(:disabled) {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.undo-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.move-history-list {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  overflow-x: auto;
+  padding: 0.2rem 0;
+  min-height: 28px;
+  scrollbar-width: thin;
+}
+
+.move-chip {
+  background: var(--history-chip-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  white-space: nowrap;
+  animation: fadeIn 0.2s ease;
+}
+
+.move-chip.x-chip { color: var(--color-x); }
+.move-chip.o-chip { color: var(--color-o); }
+
+.no-moves-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* 8. Controls */
+.game-controls {
+  display: flex;
+  gap: 0.65rem;
+}
+
+.action-btn {
+  border: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  transition: all 0.2s ease;
+}
+
+.primary-btn {
+  flex: 2;
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+}
+
+.primary-btn:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
+}
+
+.primary-btn:active {
+  transform: translateY(0);
+}
+
+.secondary-btn {
+  flex: 1;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-muted);
+}
+
+.secondary-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-main);
+  transform: translateY(-2px);
+}
+
+.share-btn {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #10b981;
+}
+
+.share-btn:hover {
+  background: #10b981;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 9. Result Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(3, 7, 18, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.modal-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.6rem;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: scale(0.85) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-badge {
+  font-size: 3rem;
+  filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.5));
+  animation: bounce 1s infinite alternate ease-in-out;
+}
+
+.modal-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  margin-top: 0.4rem;
+}
+
+.modal-actions .action-btn {
+  width: 100%;
+  padding: 0.8rem;
+}
+
+.pulse-glow {
+  animation: buttonPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes buttonPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.8); }
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+  body { padding: 0.4rem; }
+  .app-container { padding: 1.25rem 1rem; gap: 0.9rem; }
+  .brand-name { font-size: 1.15rem; }
+  .cell { font-size: 2.2rem; }
+  .action-btn { font-size: 0.82rem; padding: 0.65rem 0.8rem; }
+  .modal-card { padding: 1.6rem 1.2rem; }
+}
