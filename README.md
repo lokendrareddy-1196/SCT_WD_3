@@ -16,7 +16,7 @@
 
 📌 Track: Web Development (WD)
 📌 Task 03: Interactive Tic-Tac-Toe Game
-📌 GitHub Repository: [your repo link here]
+📌 GitHub Repository: [https://github.com/lokendrareddy-1196/SCT_WD_3]
 
 💡 Key Features & Learnings:
 🎮 Built two game modes — Player vs Player and Player vs AI
