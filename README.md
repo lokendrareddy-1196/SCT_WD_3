@@ -12,23 +12,25 @@
 ### Recommended LinkedIn Post Copy:
 
 ```text
-🚀 Excited to share that I have successfully completed Task 03 (Tic-Tac-Toe Web Application) for my Web Development Internship at SkillCraft Technology!
+🚀 Thrilled to announce that I have completed Task 03 (Tic-Tac-Toe Game Application) for my Web Development Internship at SkillCraft Technology!
 
-📌 Track: Web Development (WD)  
-📌 Task 03: Interactive Tic-Tac-Toe Web Application  
-🔗 GitHub Repository: https://github.com/lokendrareddy-1196/SCT_WD_3  
+📌 Track: Web Development (WD)
+📌 Task 03: Interactive Tic-Tac-Toe Game
+📌 GitHub Repository: [your repo link here]
 
-💡 Key Features & Highlights:
-- 🎮 Two Game Modes: PvP (Human vs Human) & PvC (Human vs AI).
-- 🤖 Multi-Tier AI Opponent: Easy (Random), Medium (Tactical Block & Win), and Hard (Unbeatable Minimax Algorithm).
-- ⏱️ Visual Radial Turn Timer: 15-second SVG countdown clock with color transitions and auto-skip.
-- 🎨 Theme Picker: Switch effortlessly between Dark (Midnight Nebula), Cyberpunk Neon, and Crisp Light themes.
-- 📜 Move History & Undo: Live move tracking with readable position badges and undo support.
-- 🏆 Rich Feedback: Animated strike-through winning line, celebratory canvas confetti burst, synthesized Web Audio sound cues, and one-click match result sharing!
+💡 Key Features & Learnings:
+🎮 Built two game modes — Player vs Player and Player vs AI
+🤖 Implemented an AI opponent with 3 difficulty levels: Easy, Medium & Hard (Minimax algorithm)
+📊 Added real-time score tracking for Wins, Draws & Losses
+🕹️ Designed a Move History log with an Undo feature for full game control
+✨ Custom player names for a personalized match experience
+🎨 Styled with a sleek Neon theme + sound toggle for an immersive UI/UX
 
-Special thanks to #SkillCraftTechnology for this wonderful internship opportunity!
+This task strengthened my understanding of game logic, AI decision-making, state management, and building interactive, responsive front-end interfaces.
 
-#WebDevelopment #FrontendDeveloper #HTML5 #CSS3 #JavaScript #TicTacToe #Minimax #SkillCraft #Internship #Coding
+ Special thanks to #SkillCraftTechnology for this amazing learning opportunity!
+
+#WebDevelopment #FrontendDeveloper #HTML5 #CSS3 #JavaScript #TicTacToe #GameDevelopment #AI #SkillCraft #Internship #SkillCraftTechnolog
 ```
 
 ---
