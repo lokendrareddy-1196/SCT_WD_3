@@ -117,10 +117,16 @@ SCT_WD_3/
 
 ---
 
-## 👤 Author
+## 👤 Author & Contributor
 
-- **Name:** Lokendra Reddy  
-- **GitHub:** [@lokendrareddy-1196](https://github.com/lokendrareddy-1196)
+- **Author & Contributor:** [Lokendra Reddy](https://github.com/lokendrareddy-1196)
+- **GitHub Profile:** [@lokendrareddy-1196](https://github.com/lokendrareddy-1196)
+- **Internship:** SkillCraft Technology Web Development Internship
+- **Track & Task:** Web Development (`WD`) — Task 03 (Interactive Tic-Tac-Toe Web App)
+
+<a href="https://github.com/lokendrareddy-1196">
+  <img src="https://avatars.githubusercontent.com/u/310470744?v=4" width="80" height="80" style="border-radius: 50%;" alt="Lokendra Reddy"/>
+</a>
 
 ---
 
